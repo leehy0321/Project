@@ -1,9 +1,9 @@
 #include<stdio.h>
 
-void bug1(void)
+void branchTest1(void)
 {
-	printf("this is bug1\n");
 	printf("wow?");
+	printf("this is branchTest1\n");
 }
 
 int foo1(void)
