@@ -2,7 +2,6 @@
 
 int main(void)
 {
-	printf("git");
-	printf("test is hard\n");
+	printf("world\n");
 	return 0;
 }
