@@ -1,5 +1,10 @@
 #include<stdio.h>
 
+void bug1(void)
+{
+	printf("this is bug1\n");
+}
+
 int foo1(void)
 {
 	printf("foo1\n");
