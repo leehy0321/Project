@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-void githubTest1(void)
+void github(void)
 {
 	printf("this is githubTest1\n");
 }
