@@ -1,9 +1,8 @@
 #include<stdio.h>
 
-void branchTest2(void)
+void gitTest2(void)
 {
-	printf("hohoho i'm hwayoung\n");
-	printf("this is branchTest2\n");
+	printf("this is github Test2\n");
 }
 
 int foo2(void)
