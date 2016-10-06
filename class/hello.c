@@ -3,6 +3,7 @@
 void bug1(void)
 {
 	printf("this is bug1\n");
+	printf("wow?");
 }
 
 int foo1(void)
