@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <ncurses.h>  // gotoxy  (1~80,1~24)
+//#include <ncurses.h>  // gotoxy  (1~80,1~24)
 //#include <windows.h>
 
-#define gotoxy(x,y) wmove(stdscr,y-1,x-1)
+//#define gotoxy(x,y) wmove(stdscr,y-1,x-1)
 
 #define SHAPE_O 0  //'¡Ü'
 #define SHAPE_D 1  //'¡á'
@@ -18,9 +18,9 @@
 ///////////////////////////////////////////////////////////////////////
 //variable
 
-//int block[5][2] = { { '¡Û', '¡Ü' },{ '¡à','¡á' },{ '¡â','¡ã' },
-//					{ '¢œ','¢Ÿ' },{ '¢»','¢Œ' } };
-int block[5][2];
+char *block[5][2] = { {"□","■"}, {"△","▲"}, {"○","●"}, 
+					  {"♡","♥"}, {"☆","★"} };
+//int block[5][2];
 
 // [0][0] : '¡Û'
 // [0][1] : '¡Ü'
@@ -37,16 +37,17 @@ void draw_gameBoard();
 /////////////////////////////////////////////////////////////////////////
 int main(void)
 {
-	gotoxy(3,4);
+	/*gotoxy(3,4);
 	printf("here is (3,4)\n");
 	
 	gotoxy(10,3);
-	printf("here is (10,3)\n");
-	//for(int i=0; i<5; i++)
-	//{
-	//	printf("block[%d][0] = %c\n",i,block[i][0]);
-	//	printf("block[%d][1] = %c\n", i, block[i][1]);
-	//}
+	printf("here is (10,3)\n");*/
+	for(int i=0; i<5; i++)
+	{
+		printf("block[%d][0] = %s\n",i,block[i][0]);
+		printf("block[%d][1] = %s\n", i, block[i][1]);
+	}
+	
 	return 0;
 }
 
@@ -57,7 +58,7 @@ int main(void)
 //	printf("%c[%d;%df",0x1B,y,x);
 //}
 
-void draw_gameBoard() // draw to 
+/*void draw_gameBoard() // draw to 
 {
 	for (int i=0; i<B_SIZE_Y; i++)
 	{
@@ -70,7 +71,7 @@ void draw_gameBoard() // draw to
 			}
 		}
 	}
-}
+}*/
 
 /*
 
