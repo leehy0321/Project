@@ -2,7 +2,7 @@
 #include <ncurses.h>  // gotoxy  (1~80,1~24)
 //#include <windows.h>
 
-#define gotoxy(x,y) wmove(stdscr,y-1,x-1)
+//#define gotoxy(x,y) wmove(stdscr,y-1,x-1)
 
 #define SHAPE_O 0  //'¡Ü'
 #define SHAPE_D 1  //'¡á'
@@ -30,7 +30,7 @@ int board_cpy[B_SIZE_X][B_SIZE_Y];  // prior board(cpy)
 
 /////////////////////////////////////////////////////////////////////////
 // functions
-//void gotoxy(int x, int y);
+void gotoxy(int x, int y);
 void draw_gameBoard();
 
 
@@ -42,6 +42,9 @@ int main(void)
 	
 	gotoxy(10,3);
 	printf("here is (10,3)\n");
+	
+	gotoxy(15,15);
+	printf("here is (15,15)\n");
 	//for(int i=0; i<5; i++)
 	//{
 	//	printf("block[%d][0] = %c\n",i,block[i][0]);
@@ -50,12 +53,12 @@ int main(void)
 	return 0;
 }
 
-//void gotoxy(int x, int y)
-//{
+void gotoxy(int x, int y)
+{
 	//COORD Pos = { 2*x,y };  // why multiple 2 **
 	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),Pos);
-//	printf("%c[%d;%df",0x1B,y,x);
-//}
+	printf("%c[%d;%df",0x1B,y,x);
+}
 
 void draw_gameBoard() // draw to 
 {
