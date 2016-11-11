@@ -1,47 +1,38 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "array.h"
+#include<time.h> // for rand
+#include "check.h"
+#include "change.h"
+
+int array[9][9];
 
 int main()
 {
-	int i, j;
-	int target, correct1=0, A,B,correct3=0;
-
-	for(i=0; i<9; i++)
-	{
-		for(j=0; j<9; j++)
-		{
-			target = array[i][j];
-			
-			if(target != 0)
-			{
-				A = array[i][j+1];
-				B = array[i][j+2];
-				
-				if(A==target)
-				{
-					if(A==B)//3
-					{
-						correct1++;
-						j=j+3;
+	srand(time(NULL));
 	
-					}
-				}
-			
-				A = array[i+1][j];
-				B = array[i+2][j];
-			
-				if(A==target)
-				{
-					if(A==B)//3
-					{
-						correct3++;
-					}
-				}
-			}
+	printf("origin : \n");
+	for(int i=0; i<9; i++)
+	{
+		for(int j=0; j<9; j++)
+		{
+			array[i][j]=rand()%5;
+			printf("%s ",block[array[i][j]][1]);
 		}
+		printf("\n");
 	}
 	
-	printf("%d      %d       \n ",correct1,correct3);
+	while(check(0,0,9,9));
 	
+	printf("change : \n");
+	for(int i=0; i<9; i++)
+	{
+		for(int j=0; j<9; j++)
+		{
+			printf("%s ",block[array[i][j]][1]);
+		}
+		printf("\n");
+	}
+	
+	return 0;
 }
