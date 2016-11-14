@@ -9,22 +9,28 @@
 
 //#define gotoxy(x,y) wmove(stdscr,y-1,x-1)
 
-#define SHAPE_C 0  // "●"  circle
-#define SHAPE_R 1  // "■"  rectangle
-#define SHAPE_S 2  // "★"  star
-#define SHAPE_H 3  // "♥"  heart
-#define SHAPE_T 4  // "▲"  triangle
+#define SHAPE_C 1  // "●"  circle
+#define SHAPE_R 2  // "■"  rectangle
+#define SHAPE_S 3  // "★"  star
+#define SHAPE_H 4  // "♥"  heart
+#define SHAPE_T 5  // "▲"  triangle
+#define WALL -1 // ""  wall   // * have to modify
 
 #define S_POSIT_X 2  // start position x
 #define S_POSIT_Y 2  // start position y
 #define B_SIZE_X 11  // board size x ( game size x )
-#define B_SIZE_Y 11
+#define B_SIZE_Y 11  // board size y ( game size y )
 
 // keyboard
-#define LEFT 75
-#define RIGHT 77
-#define UP 72
-#define DOWN 80
+#define LEFT 68
+#define RIGHT 67
+#define UP 65
+#define DOWN 66
+
+#define Q 113      // quit
+//#define S 115      // Stop
+//#define R 114      // Restart
+#define ENTER 10   // Choose block
 
 ///////////////////////////////////////////////////////////////////////
 //variable
@@ -42,6 +48,7 @@ int board_cpy[B_SIZE_X][B_SIZE_Y];  // prior board(cpy)
 void gotoxy(int x, int y);
 void draw_gameBoard();
 void reset();
+void reset_gameBoard();
 void check_key(void);
 void init_board();
 int kbhit();
@@ -49,78 +56,161 @@ int kbhit();
 /////////////////////////////////////////////////////////////////////////
 int main(void)
 {
+	reset();
 	/*
-	for(int i=0; i<5; i++)
-	{
-		printf("block[%d][0] = %s\n",i,block[i][0]);
-		printf("block[%d][1] = %s\n", i, block[i][1]);
-	}
-	* */
-	int value = kbhit();
 	while(1)
 	{
+		
+		int value;
+		
+		if( (value = kbhit()) != 0)
+		{
+			printf("%d\n",value);
+		}
+		
 		check_key();
+		draw_gameBoard();
 	}
+	*/
+	/*
+	for(int i=0; i<B_SIZE_Y; i++)
+	{
+		for(int j=0; j<B_SIZE_X; j++)
+		{
+			printf("%d",board[i][j]);
+		}
+		printf("\n");
+	}
+	*/
 	return 0;
 }
 
 void gotoxy(int x, int y)
 {
-	//COORD Pos = { 2*x,y };  // why multiple 2 **
-	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),Pos);
 	printf("%c[%d;%df",0x1B,y,x);
 }
 
 void draw_gameBoard() // draw to 
 {
+	gotoxy(S_POSIT_X, S_POSIT_Y);
 	for (int i=0; i<B_SIZE_Y; i++)
 	{
 		for (int j = 0; j < B_SIZE_X; j++)
 		{
-			gotoxy(S_POSIT_X + j, S_POSIT_Y + i);
 			switch (board[j][i])
 			{
-
+				case WALL:
+					printf(". ");
+					break;
+				case SHAPE_C: // "●" 
+					printf("● ");
+					break;
+				case SHAPE_R: // "■"
+					printf("■ ");
+					break;
+				case SHAPE_S: // "★"
+					printf("★ ");
+					break;
+				case SHAPE_H: // "♥"
+					printf("♥ ");
+					break;
+				case SHAPE_T: // "▲"
+					printf("▲ ");
+					break;	
 			}
+		}
+		printf("\n ");
+	}
+	
+	// cpy
+	for(int i=0; i<B_SIZE_X; i++)
+	{
+		for(int j=0; j<B_SIZE_Y; j++)
+		{
+				board_cpy[i][j] = board[i][j];
 		}
 	}
 }
 
 void reset()
 {
-	//system("cls");
-	init_board();// init game board
+	system("clear");
+	reset_gameBoard();  // init game board -> wall, ..
+	init_board();       // random shape
 	// and draw 
+	draw_gameBoard();
+}
+
+void reset_gameBoard()
+{
+	for (int i=0; i<B_SIZE_Y; i++)
+	{
+		for (int j = 0; j <B_SIZE_X; j++)
+		{
+			// make wall
+			if( i==0 || j==0 || i==(B_SIZE_X-1) || j==(B_SIZE_Y-1) )  // make wall
+			{
+				board[j][i] = WALL;  
+			}
+			else
+			{
+				board[j][i] = 0;  //init
+			}
+		}
+	}
 }
 
 void check_key(void)
 {
 		int key = 0;
+		
 		if( (key = kbhit()) != 0)  // if keyboard press
 		{
-				if(key==224) // if it is direction key
-				{
-					do{
-						key = kbhit();
-					}
-					while( key== 224);
-					switch(key){
-						case LEFT:
-							// move left
-							printf("<-\n");
-							break;
-						case RIGHT:
-							// move
-							break;
-						case DOWN:
-							break;
-						case UP:
-							break;
-					}
+			if(key==27 || key==91) // if it is direction key
+			{
+				do{
+					key = kbhit();
 				}
-		}
-		
-		
+				while( key== 27 || key==91);
+				switch(key){
+					case LEFT:
+						printf("<-\n");
+						break;
+					case RIGHT:
+						printf("->\n");
+						break;
+					case DOWN:
+						printf(".\n");
+						break;
+					case UP:
+						printf("-\n");
+						break;
+				}
+			}
+			else  // not direction key
+			{
+				switch(key){
+					case ENTER:
+						printf("Enter\n");
+						break;
+					case Q:
+						printf("quit\n");
+						system("clear");
+						exit(0);
+						break;
+						/*
+					case S:
+						printf("stop\n");
+						pause();
+						break;
+						
+					case R:
+						printf("restart\n");
+						break;
+						*/
+				}
+			}
+		}	
 }
 
 void init_board()
@@ -130,10 +220,11 @@ void init_board()
 	{
 		for(int x=1; x<B_SIZE_X-1; x++)
 		{
-			board[x][y]=rand()%5;
+			board[x][y]=(rand()%5 )+1;
 		}
 	}
 	// 3 match test fucntion -> retrun (x,y,shape)
+	// *
 }
 
 int kbhit()
