@@ -5,16 +5,17 @@
 #include "check.h"
 #include "change.h"
 
-
 int main()
 {
 	srand(time(NULL));
 	
-	int array[9][9];
+	int array[11][11];
+	memset(array,-1,sizeof(array));
+	
 	printf("origin : \n");
-	for(int i=0; i<9; i++)
+	for(int i=1; i<10; i++)
 	{
-		for(int j=0; j<9; j++)
+		for(int j=1; j<10; j++)
 		{
 			array[i][j]=rand()%5;
 			printf("%s ",block[array[i][j]][1]);
@@ -22,12 +23,12 @@ int main()
 		printf("\n");
 	}
 	
-	while(check(array,0,0,9,9));
+	while(check(array,1,1,9,9));
 	
 	printf("change : \n");
-	for(int i=0; i<9; i++)
+	for(int i=1; i<10; i++)
 	{
-		for(int j=0; j<9; j++)
+		for(int j=1; j<10; j++)
 		{
 			printf("%s ",block[array[i][j]][1]);
 		}
