@@ -5,12 +5,12 @@
 #include "check.h"
 #include "change.h"
 
-int array[9][9];
 
 int main()
 {
 	srand(time(NULL));
 	
+	int array[9][9];
 	printf("origin : \n");
 	for(int i=0; i<9; i++)
 	{
@@ -22,7 +22,7 @@ int main()
 		printf("\n");
 	}
 	
-	while(check(0,0,9,9));
+	while(check(array,0,0,9,9));
 	
 	printf("change : \n");
 	for(int i=0; i<9; i++)
