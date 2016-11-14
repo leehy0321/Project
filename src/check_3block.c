@@ -1,43 +1,53 @@
 #include<stdio.h>
-#include "change.h"
 
-int check(int sx, int sy, int dx, int dy)
+int check(int array[11][11], int sx, int sy, int dx, int dy)
 {
 	int i, j;
-	int target,A,B;
-	int re_value=0;
-	
-	for(i=0; i<9; i++)
+	int target, A, B;
+	int re_value = 0;
+
+	if (sx == sy == 1 && dx == dy == 9)
 	{
-		for(j=0; j<9; j++)
+		for (i = 1; i < 10; i++)
 		{
-			target = array[i][j];
-			
-			A = array[i][j+1];
-			B = array[i][j+2];
-					
-			if(A==target)
+			for (j = 1; j < 10; j++)
 			{
-				if(A==B)//3
+				target = array[i][j];
+
+				A = array[i][j + 1];
+				B = array[i][j + 2];
+
+				if (A == target)
 				{
-					array[i][j] = change_number(target);
-					target = array[i][j];
-					re_value=1;
+					if (A == B)//3
+					{
+						array[i][j] = change_number(target);
+						target = array[i][j];
+						re_value = 1;
+					}
 				}
-			}
-			A = array[i+1][j];
-			B = array[i+2][j];
-			
-			if(A==target)
-			{
-				if(A==B)//3
+				A = array[i + 1][j];
+				B = array[i + 2][j];
+
+				if (A == target)
 				{
-					array[i][j] = change_number(i,j);
-					target = array[i][j];
-					re_value=1;
+					if (A == B)//3
+					{
+						array[i][j] = change_number(i, j);
+						target = array[i][j];
+						re_value = 1;
+					}
 				}
 			}
 		}
+		return re_value;
 	}
-	return re_value;
+	else
+	{
+		if (sy == dy) // x좌표를 움직였을때 <->
+		{
+
+
+		}
+	}
 }
