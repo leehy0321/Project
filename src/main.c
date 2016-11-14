@@ -14,7 +14,14 @@
 #define SHAPE_S 3  // "★"  star
 #define SHAPE_H 4  // "♥"  heart
 #define SHAPE_T 5  // "▲"  triangle
-#define WALL -1 // ""  wall   // * have to modify
+
+#define SHAPE_C_ -1  // "○" 
+#define SHAPE_R_ -2  // "□"
+#define SHAPE_S_ -3  // "☆"  
+#define SHAPE_H_ -4  // "△"
+#define SHAPE_T_ -5  // "♡"
+
+#define WALL -10 // ""  wall   // * 
 
 #define S_POSIT_X 2  // start position x
 #define S_POSIT_Y 2  // start position y
@@ -35,13 +42,20 @@
 ///////////////////////////////////////////////////////////////////////
 //variable
 
-char *block[5][2] = { {"□","■"}, {"△","▲"}, {"○","●"}, 
-			{"♡","♥"}, {"☆","★"} };
-// [0][0] : "□"
-// [0][1] : "■"
+/*
+char *block[6][2] = { {0,0}, {"○","●"}, {"□","■"}, {"☆","★"}, 
+	{"△","▲"}, {"♡","♥"} };  
+// [1][0] : "□"
+// [1][1] : "■"
+*/
 
 int board[B_SIZE_X][B_SIZE_Y]; // board to draw
 int board_cpy[B_SIZE_X][B_SIZE_Y];  // prior board(cpy)
+
+int POSITION_X= 1, POSITION_Y= 1;  // now position
+int posit_change_X1=0, posit_change_y1=0;
+int posit_change_X2=0, posit_change_y2=0;
+int Enter_flag = 0;  // 0: not store 
 
 /////////////////////////////////////////////////////////////////////////
 // functions
@@ -57,21 +71,21 @@ int kbhit();
 int main(void)
 {
 	reset();
-	/*
+	
 	while(1)
 	{
+		//int value;
 		
-		int value;
-		
+		/*
 		if( (value = kbhit()) != 0)
 		{
 			printf("%d\n",value);
 		}
-		
+		*/
 		check_key();
 		draw_gameBoard();
 	}
-	*/
+	
 	/*
 	for(int i=0; i<B_SIZE_Y; i++)
 	{
@@ -116,6 +130,22 @@ void draw_gameBoard() // draw to
 					break;
 				case SHAPE_T: // "▲"
 					printf("▲ ");
+					break;	
+					
+				case SHAPE_C_: // "○" 
+					printf("○ ");
+					break;
+				case SHAPE_R_: // "□"
+					printf("□ ");
+					break;
+				case SHAPE_S_: // "☆" 
+					printf("☆ ");
+					break;
+				case SHAPE_H_: // "♡"
+					printf("♡ ");
+					break;
+				case SHAPE_T_: // "△"
+					printf("△ ");
 					break;	
 			}
 		}
@@ -162,7 +192,7 @@ void reset_gameBoard()
 
 void check_key(void)
 {
-		int key = 0;
+		int key = 0,temp=0;
 		
 		if( (key = kbhit()) != 0)  // if keyboard press
 		{
@@ -174,16 +204,45 @@ void check_key(void)
 				while( key== 27 || key==91);
 				switch(key){
 					case LEFT:
-						printf("<-\n");
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
+
+						//change thing to point now
+						POSITION_X--;
+						if(POSITION_X<1) POSITION_X=9; 
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
 						break;
 					case RIGHT:
-						printf("->\n");
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
+					
+						//change thing to point now
+						POSITION_X++;
+						if(POSITION_X>9) POSITION_X=1;
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
 						break;
 					case DOWN:
-						printf(".\n");
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
+					
+						//change thing to point now
+						POSITION_Y++;
+						if(POSITION_Y>9) POSITION_Y=1;
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
 						break;
+					
 					case UP:
-						printf("-\n");
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
+						
+						//change thing to point now
+						POSITION_Y--;
+						if(POSITION_Y<1) POSITION_Y=9;
+						temp = board[POSITION_X][POSITION_Y];
+						board[POSITION_X][POSITION_Y] = -temp;
 						break;
 				}
 			}
@@ -192,6 +251,25 @@ void check_key(void)
 				switch(key){
 					case ENTER:
 						printf("Enter\n");
+						if( Enter_flag==0)
+						{
+							// store now position
+							posit_change_X1 = POSITION_X; 
+							posit_change_y1 = POSITION_Y;
+							
+							Enter_flag=1;
+						}
+						else{
+							// store now position
+							posit_change_X2 = POSITION_X; 
+							posit_change_y2 = POSITION_Y;
+							
+							// change block each other
+							// check 3 match
+							// **!
+							Enter_flag=0;
+						}
+						
 						break;
 					case Q:
 						printf("quit\n");
@@ -225,6 +303,10 @@ void init_board()
 	}
 	// 3 match test fucntion -> retrun (x,y,shape)
 	// *
+	
+	// know thing to point now
+	int temp = board[POSITION_X][POSITION_Y];
+	board[POSITION_X][POSITION_Y] = -temp;
 }
 
 int kbhit()
