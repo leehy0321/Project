@@ -1,10 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-
 int change_number(int input)
 {
-	srand(time(NULL));
+	srand(time(0));
 	
 	int origin = input;
 	int change = origin;

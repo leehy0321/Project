@@ -21,7 +21,7 @@
 #define SHAPE_H_ -4  // "△"
 #define SHAPE_T_ -5  // "♡"
 
-#define WALL -10 // ""  wall   // * 
+#define WALL -10 // "▦"  wall   // * 
 
 #define S_POSIT_X 2  // start position x
 #define S_POSIT_Y 2  // start position y

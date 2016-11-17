@@ -1,15 +1,13 @@
-#include<stdio.h>
-#include<stdlib.h>
 #include "array.h"
-#include<time.h> // for rand
 #include "check.h"
-#include "change.h"
 
 int main()
 {
 	srand(time(NULL));
 	
 	int array[11][11];
+	/*
+	//Entry Check
 	memset(array,-1,sizeof(array));
 	
 	printf("origin : \n");
@@ -33,7 +31,29 @@ int main()
 			printf("%s ",block[array[i][j]][1]);
 		}
 		printf("\n");
-	}
+	}*/
 	
+	//Part Check
+	int array_[11][11] = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			  { 0, 2, 3, 4, 0, 1, 2, 3, 4, 0, 0 },
+			  { 0, 3, 4, 0, 1, 2, 3, 4, 0, 1, 0 },
+			  { 0, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0 },
+			  { 0, 3, 4, 5, 6, 7, 8, 9, 0, 1, 0 },
+			  { 0, 4, 5, 6, 7, 8, 9, 0, 1, 2, 0 },
+			  { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0 },
+			  { 0, 2, 3, 4, 0, 0, 0, 1, 1, 1, 0 },
+			  { 0, 3, 4, 0, 1, 2, 3, 4, 0, 1, 0 },
+			  { 0, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0 },
+			  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			};
+	for(int i=0; i<11; i++)
+	{
+		for(int j=0; j<11; j++)
+		{
+			printf("%d ",array_[i][j]);
+		}
+		printf("\n");
+	}
+	printf("%d\n",check(array_,6,7,7,7)); //16 
 	return 0;
 }
