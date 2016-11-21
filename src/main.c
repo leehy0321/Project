@@ -21,8 +21,9 @@
 
 #define WALL -10 // "▦"  wall   // * 
 
-#define S_POSIT_X 2  // start position x
-#define S_POSIT_Y 2  // start position y
+#define S_POSIT_X 3  // start position x
+#define S_POSIT_Y 5 // start position y
+
 #define B_SIZE_X 11  // board size x ( game size x )
 #define B_SIZE_Y 11  // board size y ( game size y )
 
@@ -64,37 +65,33 @@ void reset_gameBoard();
 void check_key(void);
 void init_board();
 int kbhit();
+void title();
 
 /////////////////////////////////////////////////////////////////////////
 int main(void)
 {
 	reset();
+	title();
 	
 	while(1)
 	{
-		//int value;
-		
-		/*
-		if( (value = kbhit()) != 0)
-		{
-			printf("%d\n",value);
-		}
-		*/
 		check_key();
 		draw_gameBoard();
 	}
 	
-	/*
-	for(int i=0; i<B_SIZE_Y; i++)
-	{
-		for(int j=0; j<B_SIZE_X; j++)
-		{
-			printf("%d",board[i][j]);
-		}
-		printf("\n");
-	}
-	*/
 	return 0;
+}
+
+void title()
+{
+	gotoxy(8,2);
+	printf("------3 match game------");
+	//gotoxy(25,3);
+	//printf("by hayoung, hwayoung");
+	gotoxy(27,5);
+	printf("Timer :");
+	gotoxy(27,10);
+	printf("Score :");
 }
 
 void gotoxy(int x, int y)
@@ -112,7 +109,7 @@ void draw_gameBoard() // draw to
 			switch (board[j][i])
 			{
 				case WALL:
-					printf(". ");
+					printf("▦ ");
 					break;
 				case SHAPE_C: // "●" 
 					printf("● ");
@@ -148,7 +145,7 @@ void draw_gameBoard() // draw to
 					break;	
 			}
 		}
-		printf("\n ");
+		gotoxy(S_POSIT_X, S_POSIT_Y+i+1);
 	}
 	
 	// cpy
@@ -207,9 +204,12 @@ void check_key(void)
 						{
 							if( (POSITION_X == posit_change_x1) && POSITION_Y == posit_change_y1 ) // enter position -> left position
  							{
-								POSITION_X--;
-								temp = board[POSITION_X][POSITION_Y];
-								board[POSITION_X][POSITION_Y] = -temp;
+								if( POSITION_X-1 >0 )
+								{
+									POSITION_X--;
+									temp = board[POSITION_X][POSITION_Y];
+									board[POSITION_X][POSITION_Y] = -temp;
+								}
 							}
 							else if( (POSITION_X == posit_change_x1+1) && POSITION_Y == posit_change_y1 ) // enter's right -> enter
 							{
@@ -241,19 +241,28 @@ void check_key(void)
 					case RIGHT:
 						if( Enter_flag ==1 )
 						{	
-							// move only one step
-							if( POSITION_X!=(posit_change_x1+1) )
-							{
-								POSITION_X++;
-								if ( POSITION_X < (posit_change_x1+1) || POSITION_X>9 )
+							if( (POSITION_X == posit_change_x1) && POSITION_Y == posit_change_y1 ) // enter position -> right position
+ 							{
+								if( POSITION_X+1 < 10 )
 								{
-									POSITION_X = posit_change_x1+1;
+									POSITION_X++;
+									temp = board[POSITION_X][POSITION_Y];
+									board[POSITION_X][POSITION_Y] = -temp;
 								}
-								// show other color
+							}
+							else if( (POSITION_X == posit_change_x1-1) && POSITION_Y == posit_change_y1 ) // enter's left+ -> enter
+							{
+								// delete now position
 								temp = board[POSITION_X][POSITION_Y];
 								board[POSITION_X][POSITION_Y] = -temp;
+								
+								//move left
+								POSITION_X++;
 							}
-						
+							// enter's left -> enter's left left
+							// or other -> left
+							
+							// do not anything
 						}
 						else
 						{
@@ -271,18 +280,28 @@ void check_key(void)
 					case DOWN:
 						if( Enter_flag ==1 )
 						{	
-							// move only one step
-							if( POSITION_Y!=(posit_change_y1+1) )
-							{
-								POSITION_Y++;
-								if ( POSITION_Y < (posit_change_y1+1) || POSITION_Y>9 )
+							if( (POSITION_X == posit_change_x1) && POSITION_Y == posit_change_y1 ) // enter position -> right position
+ 							{
+								if( POSITION_Y+1 < 10 )
 								{
-									POSITION_Y = posit_change_y1+1;
+									POSITION_Y++;
+									temp = board[POSITION_X][POSITION_Y];
+									board[POSITION_X][POSITION_Y] = -temp;
 								}
-								// show other color
+							}
+							else if( (POSITION_X == posit_change_x1) && (POSITION_Y == posit_change_y1-1) ) // enter's up -> enter
+							{
+								// delete now position
 								temp = board[POSITION_X][POSITION_Y];
 								board[POSITION_X][POSITION_Y] = -temp;
+								
+								//move left
+								POSITION_Y++;
 							}
+							// enter's down -> enter's down down
+							// or other -> down
+							
+							// do not anything
 						}
 						else
 						{
@@ -300,26 +319,28 @@ void check_key(void)
 					case UP:
 						if( Enter_flag ==1 )
 						{
-							// prior 
-							if( (POSITION_Y != posit_change_y1-1) && (POSITION_Y != posit_change_y1) )
-							{
-								temp = board[POSITION_X][POSITION_Y];
-								board[POSITION_X][POSITION_Y] = -temp;
-							}
-							
-							//move left only one step
-							
-							if( POSITION_X!=(posit_change_x1-1) )
-							{
-								POSITION_X--;
-								if ( POSITION_X < (posit_change_x1-1) || POSITION_X<1 )
+							if( (POSITION_X == posit_change_x1) && POSITION_Y == posit_change_y1 ) // enter position -> right position
+ 							{
+								if( POSITION_Y-1 > 0 )
 								{
-									POSITION_X = posit_change_x1-1;
+									POSITION_Y--;
+									temp = board[POSITION_X][POSITION_Y];
+									board[POSITION_X][POSITION_Y] = -temp;
 								}
-								// show other color
+							}
+							else if( (POSITION_X == posit_change_x1) && (POSITION_Y == posit_change_y1+1) ) // enter's down -> enter
+							{
+								// delete now position
 								temp = board[POSITION_X][POSITION_Y];
 								board[POSITION_X][POSITION_Y] = -temp;
+								
+								//move left
+								POSITION_Y--;
 							}
+							// enter's left -> enter's left left
+							// or other -> left
+							
+							// do not anything
 						}
 						else
 						{
@@ -327,25 +348,11 @@ void check_key(void)
 							board[POSITION_X][POSITION_Y] = -temp;
 							
 							//change thing to point now
-							POSITION_X--;
-							if(POSITION_X<1) POSITION_X=9; 
+							POSITION_Y--;
+							if(POSITION_Y<1) POSITION_Y=9; 
 							temp = board[POSITION_X][POSITION_Y];
 							board[POSITION_X][POSITION_Y] = -temp;
 						}
-					
-					
-						// ---------------
-						if( Enter_flag ==0 )
-						{
-							temp = board[POSITION_X][POSITION_Y];
-							board[POSITION_X][POSITION_Y] = -temp;
-						}
-						
-						//change thing to point now
-						POSITION_Y--;
-						if(POSITION_Y<1) POSITION_Y=9;
-						temp = board[POSITION_X][POSITION_Y];
-						board[POSITION_X][POSITION_Y] = -temp;
 						break;
 				}
 			}
@@ -353,13 +360,13 @@ void check_key(void)
 			{
 				switch(key){
 					case ENTER:
-						if( Enter_flag==0)
+						if( Enter_flag==0 )
 						{
 							// store now position
 							posit_change_x1 = POSITION_X; 
 							posit_change_y1 = POSITION_Y;
-							temp = board[POSITION_X][POSITION_Y];
-							board[POSITION_X][POSITION_Y] = -temp;
+							//temp = board[POSITION_X][POSITION_Y];
+							//board[POSITION_X][POSITION_Y] = -temp;
 							
 							Enter_flag=1;
 						}
@@ -369,8 +376,9 @@ void check_key(void)
 							posit_change_y2 = POSITION_Y;
 							
 							// change block each other
-							//temp = board[POSITION_X][POSITION_Y];
-							//board[POSITION_X][POSITION_Y] = -temp;
+							temp = board[posit_change_x1][posit_change_y1];
+							board[posit_change_x1][posit_change_y1] = board[POSITION_X][POSITION_Y];
+							board[POSITION_X][POSITION_Y] = temp;
 							
 							// check 3 match
 							// **!
@@ -405,7 +413,7 @@ void init_board()
 	{
 		for(int x=1; x<B_SIZE_X-1; x++)
 		{
-			board[x][y]=(rand()%5 )+1;
+			board[x][y]=( rand()%5 )+1;
 		}
 	}
 	// 3 match test fucntion -> retrun (x,y,shape)
