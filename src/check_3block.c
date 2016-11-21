@@ -80,7 +80,7 @@ int Entry_check(int array[11][11])
 	return re_value;
 }
 
-void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2])
+void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int *re_val)
 {
 	int sn,bn,y,x; // smaller number, bigger number
 	
