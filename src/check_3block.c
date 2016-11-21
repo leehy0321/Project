@@ -57,6 +57,7 @@ int check_same(int flag, int array[11][11], int j, int i)
 }
 int Entry_check(int array[11][11])
 {
+	// 리턴 : 같은 게 하나라도 있다면 1  / 전부 다르다면 0 
 	int i, j;
 	int re_value = 0;
 
@@ -76,13 +77,13 @@ int Entry_check(int array[11][11])
 			}
 		}
 	}
-		return re_value;
+	return re_value;
 }
 
-int Part_check(int array[11][11], int sx, int sy, int dx, int dy)
+void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2])
 {
 	int sn,bn,y,x; // smaller number, bigger number
-		
+	
 	if (sy == dy) // x좌표를 움직였을때 <->
 	{
 		sn = check_size(0,sx,dx);
@@ -93,11 +94,11 @@ int Part_check(int array[11][11], int sx, int sy, int dx, int dy)
 		printf("bn : %d\n",bn);
 		printf("y : %d\n",y);
 			
-			
 		if(check_same(0,array,sn-2,y))
-			return 10+sn;
+			re_val[0]=sn;
 		if(check_same(0,array,bn,y))
-			return 20+bn;
-		return 0;
+			re_val[1]=bn;
+		//return re_val;
 	}
 }
+

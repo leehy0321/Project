@@ -3,7 +3,7 @@
 
 int main()
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	
 	int array[11][11];
 	/*
@@ -54,6 +54,10 @@ int main()
 		}
 		printf("\n");
 	}
-	printf("%d\n",check(array_,6,7,7,7)); //16 
+	int *val;
+	Part_check(array_,6,7,7,7,val);
+	
+	printf("%d\n",val[0]); //16 
+	printf("%d\n",val[1]); //16
 	return 0;
 }
