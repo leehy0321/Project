@@ -21,8 +21,9 @@
 
 #define WALL -10 // "▦"  wall   // * 
 
-#define S_POSIT_X 2  // start position x
-#define S_POSIT_Y 8 // start position y
+#define S_POSIT_X 3  // start position x
+#define S_POSIT_Y 5 // start position y
+
 #define B_SIZE_X 11  // board size x ( game size x )
 #define B_SIZE_Y 11  // board size y ( game size y )
 
@@ -64,37 +65,33 @@ void reset_gameBoard();
 void check_key(void);
 void init_board();
 int kbhit();
+void title();
 
 /////////////////////////////////////////////////////////////////////////
 int main(void)
 {
 	reset();
+	title();
 	
 	while(1)
 	{
-		//int value;
-		
-		/*
-		if( (value = kbhit()) != 0)
-		{
-			printf("%d\n",value);
-		}
-		*/
 		check_key();
 		draw_gameBoard();
 	}
 	
-	/*
-	for(int i=0; i<B_SIZE_Y; i++)
-	{
-		for(int j=0; j<B_SIZE_X; j++)
-		{
-			printf("%d",board[i][j]);
-		}
-		printf("\n");
-	}
-	*/
 	return 0;
+}
+
+void title()
+{
+	gotoxy(8,2);
+	printf("------3 match game------");
+	//gotoxy(25,3);
+	//printf("by hayoung, hwayoung");
+	gotoxy(27,5);
+	printf("Timer :");
+	gotoxy(27,10);
+	printf("Score :");
 }
 
 void gotoxy(int x, int y)
@@ -112,7 +109,7 @@ void draw_gameBoard() // draw to
 			switch (board[j][i])
 			{
 				case WALL:
-					printf(". ");
+					printf("▦ ");
 					break;
 				case SHAPE_C: // "●" 
 					printf("● ");
@@ -148,7 +145,7 @@ void draw_gameBoard() // draw to
 					break;	
 			}
 		}
-		printf("\n ");
+		gotoxy(S_POSIT_X, S_POSIT_Y+i+1);
 	}
 	
 	// cpy
@@ -313,7 +310,7 @@ void check_key(void)
 							
 							//change thing to point now
 							POSITION_Y++;
-							if(POSITION_Y<1) POSITION_Y=9;
+							if(POSITION_Y>9) POSITION_Y=1;
 							temp = board[POSITION_X][POSITION_Y];
 							board[POSITION_X][POSITION_Y] = -temp;
 						}
@@ -352,7 +349,7 @@ void check_key(void)
 							
 							//change thing to point now
 							POSITION_Y--;
-							if(POSITION_Y<1) POSITION_X=9; 
+							if(POSITION_Y<1) POSITION_Y=9; 
 							temp = board[POSITION_X][POSITION_Y];
 							board[POSITION_X][POSITION_Y] = -temp;
 						}
