@@ -24,8 +24,7 @@
 #define B_SIZE_X 11  // board size x ( game size x )
 #define B_SIZE_Y 11  // board size y ( game size y )
 
-// variable
-int board[B_SIZE_X][B_SIZE_Y]; // board to draw
-int board_cpy[B_SIZE_X][B_SIZE_Y];  // prior board(cpy)
+#define S_POSIT_X 3  // start position x
+#define S_POSIT_Y 5 // start position y
 
-int POSITION_X= 1, POSITION_Y= 1;  // now position
+
