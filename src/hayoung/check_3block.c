@@ -27,11 +27,10 @@ int check_same(char c, int array[11][11], int j, int i)
 
 	int target, A, B, C;
 	target = array[i][j];
-	
-	
+
 	if(c == 'r')
 	{
-		if(j+1 > 0 && j+2 > 0)
+		if(j+3 < 10)
 		{
 			A = array[i][j + 1];
 			B = array[i][j + 2];
@@ -52,7 +51,7 @@ int check_same(char c, int array[11][11], int j, int i)
 	}
 	else if(c == 'c')// flag==1
 	{
-		if(i+1 < 10 && i+2 < 10)
+		if(i+3 < 10)
 		{
 			A = array[i + 1][j];
 			B = array[i + 2][j];
@@ -83,22 +82,19 @@ int Entry_check(int array[11][11])
 	{
 		for (j = 1; j < 10; j++)
 		{
-			if(check_same(0,array,i,j))//all of 3block are same 
+			if( check_same('r',array,j,i) || check_same('c',array,j,i) )//all of 3block are same -> row , array, x, y
 			{	
-				array[i][j] = change_number(array[i][j]);
-				re_value = 1;
-			}
-			if (check_same(1,array,i,j))
-			{
+				//printf("%d , %d  = %d \n", i,j,array[i][j]);
 				array[i][j] = change_number(array[i][j]);
 				re_value = 1;
 			}
 		}
 	}
 	return re_value;
+
 }
 
-void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2][3][5])
+void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2][3][5]) // re_val setting
 {
 	int sn,bn,y,x,count=0; // smaller number, bigger number
 	int i;
@@ -167,12 +163,18 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 			}
 		}
 	}
+	else if (sx == dx) // y좌표를 움직였을때 ↕
+	{
+		
+	}
+	
 }
 
 void delete_and_create(int array[11][11], int flag, int count, int sx, int sy, int dx, int dy)
 {
 	//flag == 0 -> row / flag == 1 -> col / flag == 2 -> cross
-	
+	//7,4
+	srand(time(0));
 	int copy_value, x_position = 0, y_position=100, pre_position=100;
 	
 	if( flag == 0 ) // row
@@ -182,26 +184,36 @@ void delete_and_create(int array[11][11], int flag, int count, int sx, int sy, i
 		while(x_position < dx+1)
 		{
 			y_position = sy;
+			pre_position = y_position-1;
 			
-			while(pre_position != 0)
+			while(pre_position != 1)
 			{
-				pre_position = y_position-1;
 				copy_value = array[pre_position][x_position];
-				
-				array[pre_position][x_position] = copy_value;
+				array[y_position][x_position] = copy_value;
 				
 				y_position--;
+				pre_position = y_position-1;
 			}
-			array[0][x_position] = change_number(0);
+			array[1][x_position] = change_number(rand()%5);
 			x_position++;
 		}
 	}
+	
+	x_position = 0;
+	y_position=100;
+	pre_position=100;
+	
+	if( flag == 1 )
+	{
+	}
+		
 }	
 	
 void create_block(int array[11][11],int re_val[2][3][5])
 {
 	int i,j;
 	int num=0, count=0;
+	
 	for(i = 0; i < 2; i++) // loop 2times
 	{
 		for(j = 0; j < 3; j++) // loop 3times

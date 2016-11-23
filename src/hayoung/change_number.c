@@ -3,7 +3,7 @@ int change_number(int input)
 	srand(time(0));
 	
 	int origin = input;
-	int change = input;
+	int change = origin;
 	
 	while(origin == change)
 	{
