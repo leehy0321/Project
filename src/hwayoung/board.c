@@ -1,9 +1,10 @@
 // make board
-
-void make_board(int board[][],int B_SIZE_X,int B_SIZE_Y,int POSITION_X, int POSITION_X)
+#include "total.h" 
+void make_board(int board[11][11], int POSITION_X, int POSITION_Y)
 {
 	//make board
-	srand(time(NULL));
+	srand(time(0));
+	
 	for(int y=1; y<B_SIZE_Y-1; y++)
 	{
 		for(int x=1; x<B_SIZE_X-1; x++)
@@ -19,7 +20,7 @@ void make_board(int board[][],int B_SIZE_X,int B_SIZE_Y,int POSITION_X, int POSI
 	board[POSITION_X][POSITION_Y] = -temp;
 }
 
-void reset_gameBoard(int board[][],int B_SIZE_X,int B_SIZE_Y,int POSITION_X, int POSITION_X)
+void reset_gameBoard(int board[11][11], int POSITION_X, int POSITION_Y)
 {
 	for (int i=0; i<B_SIZE_Y; i++)
 	{

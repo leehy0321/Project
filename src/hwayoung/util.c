@@ -1,6 +1,7 @@
 // utility
+#include "total.h" 
 
-void draw_gameBoard(int board[][],int S_POSIT_X, int S_POSIT_Y, int B_SIZE_X, int B_SIZE_Y) // draw to 
+void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to 
 {
 	gotoxy(S_POSIT_X, S_POSIT_Y);
 	for (int i=0; i<B_SIZE_Y; i++)
@@ -71,7 +72,7 @@ void title()
 	//gotoxy(25,3);
 	//printf("by hayoung, hwayoung");
 	gotoxy(27,5);
-	printf("Timer :");s
+	printf("Timer :");
 	gotoxy(27,10);
 	printf("Score :");
 }

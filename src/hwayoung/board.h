@@ -1,3 +1,4 @@
 //about board
-void make_board(int board[][],int B_SIZE_X,int B_SIZE_Y,int POSITION_X, int POSITION_X)
-void reset_gameBoard(int board[][],int B_SIZE_X,int B_SIZE_Y,int POSITION_X, int POSITION_X);
+
+void make_board(int board[11][11], int POSITION_X, int POSITION_Y);
+void reset_gameBoard(int board[11][11], int POSITION_X, int POSITION_Y);
