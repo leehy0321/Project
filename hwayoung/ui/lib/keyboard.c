@@ -37,7 +37,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
  							{
 								if( *POSITION_X-1 >0 )
 								{
-									*POSITION_X--;
+									(*POSITION_X)--;
 									temp = board[*POSITION_X][*POSITION_Y];
 									board[*POSITION_X][*POSITION_Y] = -temp;
 								}
@@ -49,7 +49,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 								board[*POSITION_X][*POSITION_Y] = -temp;
 								
 								//move left
-								*POSITION_X--;
+								(*POSITION_X)--;
 							}
 							// enter's left -> enter's left left
 							// or other -> left
@@ -62,7 +62,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 							board[*POSITION_X][*POSITION_Y] = -temp;
 							
 							//change thing to point now
-							*POSITION_X--;
+							(*POSITION_X)--;
 							if(*POSITION_X<1) *POSITION_X=9; 
 							temp = board[*POSITION_X][*POSITION_Y];
 							board[*POSITION_X][*POSITION_Y] = -temp;
@@ -76,7 +76,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
  							{
 								if( *POSITION_X+1 < 10 )
 								{
-									*POSITION_X++;
+									(*POSITION_X)++;
 									temp = board[*POSITION_X][*POSITION_Y];
 									board[*POSITION_X][*POSITION_Y] = -temp;
 								}
@@ -88,7 +88,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 								board[*POSITION_X][*POSITION_Y] = -temp;
 								
 								//move left
-								*POSITION_X++;
+								(*POSITION_X)++;
 							}
 							// enter's left -> enter's left left
 							// or other -> left
@@ -101,7 +101,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 							board[*POSITION_X][*POSITION_Y] = -temp;
 							
 							//change thing to point now
-							*POSITION_X++;
+							(*POSITION_X)++;
 							if(*POSITION_X>9) *POSITION_X=1;
 							temp = board[*POSITION_X][*POSITION_Y];
 							board[*POSITION_X][*POSITION_Y] = -temp;
@@ -115,7 +115,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
  							{
 								if( *POSITION_Y+1 < 10 )
 								{
-									*POSITION_Y++;
+									(*POSITION_Y)++;
 									temp = board[*POSITION_X][*POSITION_Y];
 									board[*POSITION_X][*POSITION_Y] = -temp;
 								}
@@ -127,7 +127,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 								board[*POSITION_X][*POSITION_Y] = -temp;
 								
 								//move left
-								*POSITION_Y++;
+								(*POSITION_Y)++;
 							}
 							// enter's down -> enter's down down
 							// or other -> down
@@ -140,7 +140,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 							board[*POSITION_X][*POSITION_Y] = -temp;
 							
 							//change thing to point now
-							*POSITION_Y++;
+							(*POSITION_Y)++;
 							if(*POSITION_Y>9) *POSITION_Y=1;
 							temp = board[*POSITION_X][*POSITION_Y];
 							board[*POSITION_X][*POSITION_Y] = -temp;
@@ -154,7 +154,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
  							{
 								if( *POSITION_Y-1 > 0 )
 								{
-									*POSITION_Y--;
+									(*POSITION_Y)--;
 									temp = board[*POSITION_X][*POSITION_Y];
 									board[*POSITION_X][*POSITION_Y] = -temp;
 								}
@@ -166,7 +166,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 								board[*POSITION_X][*POSITION_Y] = -temp;
 								
 								//move left
-								*POSITION_Y--;
+								(*POSITION_Y)--;
 							}
 							// enter's left -> enter's left left
 							// or other -> left
@@ -179,7 +179,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 							board[*POSITION_X][*POSITION_Y] = -temp;
 							
 							//change thing to point now
-							*POSITION_Y--;
+							(*POSITION_Y)--;
 							if(*POSITION_Y<1) *POSITION_Y=9; 
 							temp = board[*POSITION_X][*POSITION_Y];
 							board[*POSITION_X][*POSITION_Y] = -temp;

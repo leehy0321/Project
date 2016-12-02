@@ -13,8 +13,7 @@ void *t_function(void *timeSet)  // miniutes
     
     while(flag)
     {
-		printf("timer start\n");
-		printf("timer %d : %d : %d \n",time[0],time[1],time[2]);
+	printf("%d : %d : %d \n",time[0],time[1],time[2]);
         sleep(1); // 1 sec
         
         if( time[1]==0 && time[2]==0 )
@@ -64,4 +63,5 @@ int main()
 
     return 0;
 }
+
 
