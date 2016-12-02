@@ -15,7 +15,7 @@ int array_[11][11] = { {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
 			  { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
 			};
 			
-void print_blcok()
+void print_block()
 {
 	for(int i=0; i<11; i++)
 	{
@@ -58,19 +58,20 @@ int main()
 	}*/
 	
 	//Part Check
+	print_block();
+	//Part_check(array_,4,5,5,5,val); // block check
+	//delete_and_create(array_,val,0);
 	
-	print_blcok();
-	Part_check(array_,4,5,5,5,val); // block check
-	//printf("%d %d %d" ,val[1][0][0],val[1][1][0], val[1][2][0]);
-	//Part_check(array_,2,7,3,7,val); 
+	//printf("%d %d %d" ,val[0][0][0],val[0][1][0], val[0][2][0]);
+	Part_check(array_,2,7,3,7,val); 
 	create_block(array_, val); // create new block
 	printf("\n change1 \n");
-	print_blcok();
+	print_block();
 	
 	while(Entry_check(array_));
 	
 	printf("\n change2 \n");
-	print_blcok();
+	print_block();
 	
 	return 0;
 }

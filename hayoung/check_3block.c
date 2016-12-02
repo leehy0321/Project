@@ -1,3 +1,7 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
 int check_size(char c, int x, int y)
 {
 	//c == s -> which is smaller? 
@@ -97,7 +101,6 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 {
 	int sn,bn,y,x,count=0; // smaller number, bigger number
 	int i;
-
 	if (sy == dy) // x좌표를 움직였을때 <->
 	{
 		sn = check_size('s',sx,dx); // smaller
@@ -226,8 +229,8 @@ int is_there(int same_array[2][5], int same_position[2])
 
 void delete_and_create(int array[11][11], int re_val[2][3][5], int Index)//start , end
 {
-	int i, j, count = 0, flag = 1, row_col_dia[2];
-	int same_x_y_position[2], position[3][5];
+	int i, j, count = 0, flag = 0, row_col_dia[2] = {-1, -1},remember=0;
+	int same_x_y_position[2], position[2][5];
 	int sx,sy,dx,dy;
 	int copy_value, x_position = 0, y_position=100, pre_position=100, sub=0;
 	
@@ -244,14 +247,16 @@ void delete_and_create(int array[11][11], int re_val[2][3][5], int Index)//start
 
 			count++;
 		}
+		else
+			continue;
+			
 	}
 	
-	
-	if (count == 2)
+	if(count == 2)
 		if(is_there(position, same_x_y_position))
 			flag = 2;
-
-	for (i = 0; i < flag; i++)
+			
+	for (i = 0; i < count; i++)
 	{
 		sx = re_val[Index][row_col_dia[i]][1];
 		sy = re_val[Index][row_col_dia[i]][2];
@@ -269,16 +274,21 @@ void delete_and_create(int array[11][11], int re_val[2][3][5], int Index)//start
 
 				while (pre_position != 0)
 				{
-					if(x_position == same_x_y_position[0] && y_position == same_x_y_position[1])
-						continue;
 					copy_value = array[pre_position][x_position];
 					array[y_position][x_position] = copy_value;
 
 					y_position--;
 					pre_position = y_position - 1;
 				}
+				
 				array[1][x_position] = change_number(rand() % 5);
 				x_position++;
+			}
+			
+			if(flag == 2)
+			{
+				remember = array[same_x_y_position[1]][same_x_y_position[0]];
+				flag--;
 			}
 		}
 
@@ -288,12 +298,15 @@ void delete_and_create(int array[11][11], int re_val[2][3][5], int Index)//start
 
 			y_position = dy;
 			x_position = sx;
-			pre_position = y_position - count;
+			pre_position = y_position - re_val[Index][row_col_dia[i]][0];
 
 			//블록 위에서 아래로 내리기
 			while (pre_position != 0)
 			{
-				copy_value = array[pre_position][x_position];
+				if(x_position == same_x_y_position[0] && pre_position == same_x_y_position[1] && flag == 1)
+					copy_value = remember;
+				else
+					copy_value = array[pre_position][x_position];
 				array[y_position][x_position] = copy_value;
 				pre_position--;
 				y_position--;
@@ -314,11 +327,10 @@ void delete_and_create(int array[11][11], int re_val[2][3][5], int Index)//start
 
 void create_block(int array[11][11],int re_val[2][3][5])
 {
-	int i,j;
-	int num=0, count=0;
+	int i;
 	
-	for(i = 0; i < 2; i++) // loop 2times
+	for(i=0; i<2; i++)  // loop 2times
 	{
-		delete_and_create(array, re_val, 1);
+		delete_and_create(array, re_val, i);
 	}
 }
