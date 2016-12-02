@@ -5,7 +5,6 @@
 #include <termios.h>  // kbhit
 #include <unistd.h>
 
-#include "make_board.h"
 
 #define SHAPE_C 1  // "●"  circle
 #define SHAPE_R 2  // "■"  rectangle
@@ -13,15 +12,21 @@
 #define SHAPE_H 4  // "♥"  heart
 #define SHAPE_T 5  // "▲"  triangle
 
-#define SHAPE_C_ -1  // "○"  other color
+#define SHAPE_C_ -1  // "○"  now position ->other color
 #define SHAPE_R_ -2  // "□"
 #define SHAPE_S_ -3  // "☆"  
 #define SHAPE_H_ -4  // "△"
 #define SHAPE_T_ -5  // "♡"
 
+#define SHAPE_C_E 11  // enter position -> other color
+#define SHAPE_R_E 12  // 
+#define SHAPE_S_E 13  //   
+#define SHAPE_H_E 14  // 
+#define SHAPE_T_E 15  // 
+
 #define WALL -10 // "▦"  wall 
 
-#define S_POSIT_X 3  // start position x
+#define S_POSIT_X 10  // start position x
 #define S_POSIT_Y 5 // start position y
 
 #define B_SIZE_X 11  // board size x ( game size x )
@@ -92,14 +97,15 @@ int main(void)
 
 void title()
 {
-	gotoxy(8,2);
-	printf("------3 match game------");
+	gotoxy(25,2);
+	printf("▦  3-MATCH GAME ▦");
+	//printf("");
 	//gotoxy(25,3);
 	//printf("by hayoung, hwayoung");
-	gotoxy(27,5);
-	printf("Timer :");
-	gotoxy(27,10);
-	printf("Score :");
+	gotoxy(40,5);
+	printf("---- Timer ----");
+	gotoxy(40,12);
+	printf("---- Score ----");
 }
 
 void gotoxy(int x, int y)
@@ -134,8 +140,8 @@ void draw_gameBoard() // draw to
 				case SHAPE_T: // "▲"
 					printf("▲ ");
 					break;	
-					
-				//91
+						
+				//91 now position
 				case SHAPE_C_: // "●" 
 					printf("\033[94m● \033[0m");
 					break;
@@ -151,12 +157,30 @@ void draw_gameBoard() // draw to
 				case SHAPE_T_: // "▲"
 					printf("\033[94m▲ \033[0m");
 					break;	
+					
+				// enter key
+				case SHAPE_C_E:
+					printf("\033[95m● \033[0m");
+					break;
+				case SHAPE_R_E: // "■"
+					printf("\033[95m■ \033[0m");
+					break;
+				case SHAPE_S_E: // "★" 
+					printf("\033[95m★ \033[0m");
+					break;
+				case SHAPE_H_E: // "♥"
+					printf("\033[95m♥ \033[0m");
+					break;
+				case SHAPE_T_E: // "▲"
+					printf("\033[95m▲ \033[0m");
+					break;	
 			}
 		}
 		gotoxy(S_POSIT_X, S_POSIT_Y+i+1);
 	}
 	
 	// cpy
+	/*
 	for(int i=0; i<B_SIZE_X; i++)
 	{
 		for(int j=0; j<B_SIZE_Y; j++)
@@ -164,6 +188,7 @@ void draw_gameBoard() // draw to
 				board_cpy[i][j] = board[i][j];
 		}
 	}
+	* */
 }
 
 void reset()
@@ -180,11 +205,12 @@ void reset_gameBoard()
 			// make wall
 			if( i==0 || j==0 || i==(B_SIZE_X-1) || j==(B_SIZE_Y-1) )  // make wall
 			{
-				board[j][i] = WALL;  
+				board[j][i] = WALL; 
+				board_cpy[j][i] = WALL; 
 			}
 			else
 			{
-				board[j][i] = 0;  //init
+				board[j][i] = 0;  //initq
 			}
 		}
 	}
@@ -369,8 +395,8 @@ void check_key(void)
 							// store now position
 							posit_change_x1 = POSITION_X; 
 							posit_change_y1 = POSITION_Y;
-							//temp = board[POSITION_X][POSITION_Y];
-							//board[POSITION_X][POSITION_Y] = -temp;
+							temp = board[POSITION_X][POSITION_Y];
+							board[POSITION_X][POSITION_Y] = -board[POSITION_X][POSITION_Y]+ 10;  // store enter key
 							
 							Enter_flag=1;
 						}
@@ -381,8 +407,8 @@ void check_key(void)
 							
 							// change block each other
 							temp = board[posit_change_x1][posit_change_y1];
-							board[posit_change_x1][posit_change_y1] = board[POSITION_X][POSITION_Y];
-							board[POSITION_X][POSITION_Y] = temp;
+							//board[posit_change_x1][posit_change_y1] = board[POSITION_X][POSITION_Y];
+							board[POSITION_X][POSITION_Y] = -board[POSITION_X][POSITION_Y]+10;
 							
 							// check 3 match
 							// **!

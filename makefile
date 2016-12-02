@@ -1,8 +1,25 @@
-main : src/main.c
-	cd src; gcc main.c -L/home/hwayoug/TeamProject/Project/header -lkbhit -o main
-	
-libkbhit.a : kbhit.o
-	cd header; ar rv libkbhit.a kbhit.o
+all: hwayounglib.a main
 
-kbhit.o : kbhit.c
-	cd header; gcc -c kbhit.c
+hwayounglib.a : board.o keyboard.o util.o
+	ar rv hwayounglib.a board.o keyboard.o util.o
+
+board.o : board.c
+	gcc -c board.c -o board.o
+
+keyboard.o : keyboard.c
+	gcc -c keyboard.c -o keyboard.o
+
+util.o : util.c
+	gcc -c util.c -o util.o
+	
+
+main : main.c
+	gcc main.c -o main -I.. -lpthread -L .. hwayounglib.a
+
+
+clean :
+	rm -f hwayounglib.a board.o keyboard.o util.o main
+
+	
+
+

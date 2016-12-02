@@ -1,5 +1,5 @@
 // keyboard
-#include "total.h" 
+#include "../include/total.h" 
 #include <termios.h>  // kbhit
 #include <unistd.h>
 
@@ -16,6 +16,24 @@
 int posit_change_x1=0, posit_change_y1=0;
 int posit_change_x2=0, posit_change_y2=0;
 int Enter_flag = 0;  // 0: not store 
+
+int kbhit()
+{
+	struct termios oldt, newt;
+	int ch;
+	
+	tcgetattr(STDIN_FILENO, &oldt );
+	newt = oldt;
+	
+	newt.c_lflag &= ~(ICANON | ECHO );
+	tcsetattr( STDIN_FILENO, TCSANOW, &newt);
+	
+	ch = getchar();
+	
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+	
+	return ch;
+}
 
 void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 {
@@ -235,22 +253,4 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 				}
 			}
 		}	
-}
-
-int kbhit()
-{
-	struct termios oldt, newt;
-	int ch;
-	
-	tcgetattr(STDIN_FILENO, &oldt );
-	newt = oldt;
-	
-	newt.c_lflag &= ~(ICANON | ECHO );
-	tcsetattr( STDIN_FILENO, TCSANOW, &newt);
-	
-	ch = getchar();
-	
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-	
-	return ch;
 }

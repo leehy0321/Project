@@ -1,5 +1,6 @@
 // make board
-#include "total.h" 
+#include "../include/total.h" 
+
 void make_board(int board[11][11], int POSITION_X, int POSITION_Y)
 {
 	//make board

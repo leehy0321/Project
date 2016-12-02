@@ -1,5 +1,10 @@
 // utility
-#include "total.h" 
+#include "../include/total.h" 
+
+void gotoxy(int x, int y)
+{
+	printf("%c[%d;%df",0x1B,y,x);
+}
 
 void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to 
 {
@@ -58,11 +63,6 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to
 				board_cpy[i][j] = board[i][j];
 		}
 	}
-}
-
-void gotoxy(int x, int y)
-{
-	printf("%c[%d;%df",0x1B,y,x);
 }
 
 void title()

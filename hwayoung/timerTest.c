@@ -13,7 +13,7 @@ void *t_function(void *timeSet)  // miniutes
     
     while(flag)
     {
-	printf("%d : %d : %d \n",time[0],time[1],time[2]);
+	    printf("%d : %d : %d \n",time[0],time[1],time[2]);
         sleep(1); // 1 sec
         
         if( time[1]==0 && time[2]==0 )
@@ -27,8 +27,8 @@ void *t_function(void *timeSet)  // miniutes
 			time[2] = 60; //sec
 		}
 		time[2]--;
-		
     }
+    pthread_exit(NULL);
 }
 
 int main()
@@ -36,7 +36,7 @@ int main()
     pthread_t p_thread;
     int thr_id;
     int status;
-    int time = 1;
+    int time = 2;
     
     int i=0;
 
