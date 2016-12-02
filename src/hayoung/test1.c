@@ -9,9 +9,9 @@ int array_[11][11] = { {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
 			  { 5, 3, 4, 2, 3, 1, 2, 3, 0, 1, 5 },
 			  { 5, 2, 1, 0, 3, 0, 0, 0, 1, 2, 5 },
 			  { 5, 1, 2, 3, 4, 0, 0, 2, 3, 4, 5 },
-			  { 5, 2, 1, 2, 3, 0, 2, 4, 1, 1, 5 },
+			  { 5, 2, 4, 2, 3, 0, 2, 4, 1, 1, 5 },
 			  { 5, 1, 4, 0, 1, 2, 3, 4, 0, 1, 5 },
-			  { 5, 2, 3, 1, 3, 2, 1, 3, 4, 0, 5 },
+			  { 5, 2, 4, 1, 3, 2, 1, 3, 4, 0, 5 },
 			  { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
 			};
 			
@@ -60,10 +60,10 @@ int main()
 	//Part Check
 	
 	print_blcok();
-	Part_check(array_,6,7,5,7,val); // block check 
-	
+	Part_check(array_,4,5,5,5,val); // block check
+	//printf("%d %d %d" ,val[1][0][0],val[1][1][0], val[1][2][0]);
+	//Part_check(array_,2,7,3,7,val); 
 	create_block(array_, val); // create new block
-	
 	printf("\n change1 \n");
 	print_blcok();
 	
@@ -71,5 +71,6 @@ int main()
 	
 	printf("\n change2 \n");
 	print_blcok();
+	
 	return 0;
 }

@@ -27,7 +27,7 @@ int check_same(char c, int array[11][11], int j, int i)
 
 	int target, A, B, C;
 	target = array[i][j];
-
+	
 	if(c == 'r')
 	{
 		if(j+3 < 10)
@@ -51,7 +51,7 @@ int check_same(char c, int array[11][11], int j, int i)
 	}
 	else if(c == 'c')// flag==1
 	{
-		if(i+3 < 10)
+		if(i+3 < 11)
 		{
 			A = array[i + 1][j];
 			B = array[i + 2][j];
@@ -84,7 +84,6 @@ int Entry_check(int array[11][11])
 		{
 			if( check_same('r',array,j,i) || check_same('c',array,j,i) )//all of 3block are same -> row , array, x, y
 			{	
-				//printf("%d , %d  = %d \n", i,j,array[i][j]);
 				array[i][j] = change_number(array[i][j]);
 				re_value = 1;
 			}
@@ -106,9 +105,12 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 		
 		y = sy;
 		
+		//----------------------------가로---------------------------//
+		
 		for(i = 3; i>=2; i--)//2,3
 		{
-			if(count = check_same('r',array,sn-i,y)) // sn으로부터 가로 같은거 구하기!
+			count = check_same('r',array,sn-i,y) ;
+			if(count && sn-i > 0) // sn으로부터 가로 같은거 구하기!
 			{
 				re_val[0][0][0] = count; // number
 				re_val[0][0][1] = sn-i; // 시작 지점
@@ -121,8 +123,8 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 		}
 			
 		count = 0;
-		
-		if(count = check_same('r',array,bn,y)) // bn으로부터 가로 같은거 구하기!
+		count = check_same('r',array,bn,y);
+		if(count && bn > 0) // bn으로부터 가로 같은거 구하기!
 		{
 			re_val[1][0][0] = count;
 			re_val[1][0][1] = bn;
@@ -133,15 +135,19 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 		
 		count = 0;
 		
+		//-------------------세로------------------------------//  
+		
 		for(i = 3; i>=-1; i--)
 		{
-			if(count = check_same('c',array,sn,y-i))
+			count = check_same('c',array,sn,y-i);
+			if( count && y-i > 0 && y-i < 10)
 			{
 				re_val[0][1][0] = count;
 				re_val[0][1][1] = sn;
-				re_val[0][1][2] = y+i;
+				re_val[0][1][2] = y-i;
 				re_val[0][1][3] = sn;
-				re_val[0][1][4] = y+i+count-1;
+				re_val[0][1][4] = y-i+count-1;
+				//printf("%d : %d %d %d %d \n",re_val[0][1][0],re_val[0][1][1], re_val[0][1][2], re_val[0][1][3], re_val[0][1][4]);
 				
 				break;
 			}
@@ -151,18 +157,24 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 		
 		for(i = 3; i>=-1; i--)
 		{
-			if(count = check_same('c',array,bn,y-i))
+			count = check_same('c',array,bn,y-i);
+			if( count && y-i > 0 && y-i < 10)
 			{
 				re_val[1][1][0] = count;
 				re_val[1][1][1] = bn;
-				re_val[1][1][2] = y+i;
+				re_val[1][1][2] = y-i;
 				re_val[1][1][3] = bn;
-				re_val[1][1][4] = y+i+count-1;
+				re_val[1][1][4] = y-i+count-1;
 				
 				break;
 			}
 		}
+		
+		count = 0;
+		//----대각선------//
 	}
+	
+	
 	else if (sx == dx) // y좌표를 움직였을때 ↕
 	{
 		
@@ -170,45 +182,136 @@ void Part_check(int array[11][11], int sx, int sy, int dx, int dy, int re_val[2]
 	
 }
 
-void delete_and_create(int array[11][11], int flag, int count, int sx, int sy, int dx, int dy)
+
+
+int is_there(int same_array[2][5], int same_position[2])
 {
-	//flag == 0 -> row / flag == 1 -> col / flag == 2 -> cross
-	//7,4
-	srand(time(0));
-	int copy_value, x_position = 0, y_position=100, pre_position=100;
+	int i,j,sizex0, sizey0, sizex1, sizey1;
+	int size0 = same_array[0][0] , size1 = same_array[1][0];
+	int sx0=same_array[0][1], sy0 = same_array[0][2],dx0=same_array[0][3], dy0 = same_array[0][4];
+	int sx1=same_array[1][1], sy1 = same_array[1][2],dx1=same_array[1][3], dy1 = same_array[1][4];
 	
-	if( flag == 0 ) // row
+	sizex0 = dx0 - sx0;
+	sizey0 = dy0 - sy0;
+	sizex1 = dx1 - sx1;
+	sizey1 = dy1 - sy1;
+	
+	for(i=0; i<size0; i++)
 	{
-		x_position = sx;
-		
-		while(x_position < dx+1)
+		for(j=0; j<size1; j++)
 		{
-			y_position = sy;
-			pre_position = y_position-1;
-			
-			while(pre_position != 1)
+			if(sx0 + sizex0 == sx1 + sizex1)
 			{
-				copy_value = array[pre_position][x_position];
-				array[y_position][x_position] = copy_value;
-				
-				y_position--;
-				pre_position = y_position-1;
+				if(sy0 + sizey0 == sy1 + sizey1)
+				{
+					same_position[0] = sx0+sizex0;
+					same_position[1] = sy0+sizey0;
+					return 1;
+				}
 			}
-			array[1][x_position] = change_number(rand()%5);
-			x_position++;
+			if(sizex1 != 0)
+				sizex1--;
+			if(sizey1 != 0)
+				sizey1--;
+		}
+		if(sizex0 != 0)
+			sizex0--;
+		if(sizey0 != 0)
+			sizey0--;
+		sizex1 = dx1 - sx1;
+		sizey1 = dy1 - sy1;	
+	}		
+	return 0;
+}
+
+void delete_and_create(int array[11][11], int re_val[2][3][5], int Index)//start , end
+{
+	int i, j, count = 0, flag = 1, row_col_dia[2];
+	int same_x_y_position[2], position[3][5];
+	int sx,sy,dx,dy;
+	int copy_value, x_position = 0, y_position=100, pre_position=100, sub=0;
+	
+	for (i = 0; i < 3; i++)
+	{
+		if (re_val[Index][i][0] != 0)
+		{
+			position[count][0] = re_val[Index][i][0]; // size
+			row_col_dia[count] = i;
+			printf("%d " ,i);
+
+			for (j = 1; j < 5; j++)
+				position[count][j] = re_val[Index][i][j]; // put
+
+			count++;
 		}
 	}
 	
-	x_position = 0;
-	y_position=100;
-	pre_position=100;
 	
-	if( flag == 1 )
+	if (count == 2)
+		if(is_there(position, same_x_y_position))
+			flag = 2;
+
+	for (i = 0; i < flag; i++)
 	{
+		sx = re_val[Index][row_col_dia[i]][1];
+		sy = re_val[Index][row_col_dia[i]][2];
+		dx = re_val[Index][row_col_dia[i]][3];
+		dy = re_val[Index][row_col_dia[i]][4];
+			
+		if (row_col_dia[i] == 0) // row
+		{
+			x_position = sx;
+			
+			while (x_position < dx + 1)
+			{
+				y_position = sy;
+				pre_position = y_position - 1;
+
+				while (pre_position != 0)
+				{
+					if(x_position == same_x_y_position[0] && y_position == same_x_y_position[1])
+						continue;
+					copy_value = array[pre_position][x_position];
+					array[y_position][x_position] = copy_value;
+
+					y_position--;
+					pre_position = y_position - 1;
+				}
+				array[1][x_position] = change_number(rand() % 5);
+				x_position++;
+			}
+		}
+
+		else if (row_col_dia[i] == 1) // col
+		{
+			sub = dy - dx;
+
+			y_position = dy;
+			x_position = sx;
+			pre_position = y_position - count;
+
+			//블록 위에서 아래로 내리기
+			while (pre_position != 0)
+			{
+				copy_value = array[pre_position][x_position];
+				array[y_position][x_position] = copy_value;
+				pre_position--;
+				y_position--;
+			}
+
+			y_position++;
+
+			//make new block
+			while (y_position != pre_position)
+			{
+				array[y_position][x_position] = change_number(rand() % 5);
+				y_position--;
+			}
+		}
 	}
-		
-}	
 	
+}
+
 void create_block(int array[11][11],int re_val[2][3][5])
 {
 	int i,j;
@@ -216,12 +319,6 @@ void create_block(int array[11][11],int re_val[2][3][5])
 	
 	for(i = 0; i < 2; i++) // loop 2times
 	{
-		for(j = 0; j < 3; j++) // loop 3times
-		{
-			if(re_val[i][j][0] != 0)
-			{
-				delete_and_create(array, j, re_val[i][j][0], re_val[i][j][1], re_val[i][j][2], re_val[i][j][3], re_val[i][j][4]);
-			}
-		}
+		delete_and_create(array, re_val, 1);
 	}
 }
