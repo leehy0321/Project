@@ -35,7 +35,7 @@ int kbhit()
 	return ch;
 }
 
-void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
+void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFlag)
 {
 		int key = 0,temp=0;
 		
@@ -214,8 +214,9 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 							// store now position
 							posit_change_x1 = *POSITION_X; 
 							posit_change_y1 = *POSITION_Y;
-							//temp = board[POSITION_X][POSITION_Y];
-							//board[POSITION_X][POSITION_Y] = -temp;
+							
+							temp = -board[*POSITION_X][*POSITION_Y];
+							board[*POSITION_X][*POSITION_Y] = temp+10;
 							
 							Enter_flag=1;
 						}
@@ -230,7 +231,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 							board[*POSITION_X][*POSITION_Y] = temp;
 							
 							// check 3 match
-							// **!
+							// @@
 							Enter_flag=0;
 						}
 						
@@ -252,5 +253,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y)
 						*/
 				}
 			}
+			// keyboard
+			*drawFlag =1;
 		}	
 }

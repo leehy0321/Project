@@ -1,10 +1,11 @@
+//backup
+
 #include <stdio.h>
 #include <time.h> // random
 #include <stdlib.h>
 
 #include <termios.h>  // kbhit
 #include <unistd.h>
-
 
 #define SHAPE_C 1  // "●"  circle
 #define SHAPE_R 2  // "■"  rectangle

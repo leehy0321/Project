@@ -34,7 +34,7 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to
 					printf("▲ ");
 					break;	
 					
-				//91
+				//91 now position
 				case SHAPE_C_: // "●" 
 					printf("\033[94m● \033[0m");
 					break;
@@ -49,6 +49,23 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to
 					break;
 				case SHAPE_T_: // "▲"
 					printf("\033[94m▲ \033[0m");
+					break;	
+					
+				// enter key
+				case SHAPE_C_E:
+					printf("\033[95m● \033[0m");
+					break;
+				case SHAPE_R_E: // "■"
+					printf("\033[95m■ \033[0m");
+					break;
+				case SHAPE_S_E: // "★" 
+					printf("\033[95m★ \033[0m");
+					break;
+				case SHAPE_H_E: // "♥"
+					printf("\033[95m♥ \033[0m");
+					break;
+				case SHAPE_T_E: // "▲"
+					printf("\033[95m▲ \033[0m");
 					break;	
 			}
 		}
@@ -67,12 +84,41 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to
 
 void title()
 {
-	gotoxy(8,2);
-	printf("------3 match game------");
+	gotoxy(25,2);
+	printf("▦  3-MATCH GAME ▦");
+	//printf("");
 	//gotoxy(25,3);
 	//printf("by hayoung, hwayoung");
-	gotoxy(27,5);
-	printf("Timer :");
-	gotoxy(27,10);
-	printf("Score :");
+	gotoxy(40,5);
+	printf("┏━━━━ Timer ━━━━┓");
+	gotoxy(40,6);
+	printf("┃");
+	gotoxy(40,7);
+	printf("┃");
+	gotoxy(40,8);
+	printf("┃");
+	gotoxy(40,9);
+	printf("┗━━━━━━━━━━━━━━━┛");
+	gotoxy(56,6);
+	printf("┃");
+	gotoxy(56,7);
+	printf("┃");
+	gotoxy(56,8);
+	printf("┃");
+	gotoxy(40,11);
+	printf("┏━━━━ Score ━━━━┓");
+	gotoxy(40,12);
+	printf("┃");
+	gotoxy(40,13);
+	printf("┃");
+	gotoxy(40,14);
+	printf("┃");
+	gotoxy(40,15);
+	printf("┗━━━━━━━━━━━━━━━┛");
+	gotoxy(56,12);
+	printf("┃");
+	gotoxy(56,13);
+	printf("┃");
+	gotoxy(56,14);
+	printf("┃");
 }

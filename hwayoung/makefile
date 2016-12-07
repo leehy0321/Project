@@ -1,5 +1,7 @@
+# at hwayoung
+
 main : main.c
-	gcc -o main main.c -I/MyClass/project/Project/hwayoung/ui  -L/MyClass/project/Project/hwayoung/ui/lib-lhwayounglib
+	gcc main.c -I/home/hwayoung/TeamProject/Project/hwayoung/ui/include -lpthread -L/home/hwayoung/TeamProject/Project/hwayoung/ui/lib -lhwayounglib -o main
 
 clean:
 	rm -f main
