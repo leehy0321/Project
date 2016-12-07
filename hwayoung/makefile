@@ -1,12 +1,5 @@
-# hwayoung
-all: makeLib main
-
-makeLib : 
-	make -C ui;
-
 main : main.c
-	gcc main.c -lpthread -Ihome/hwayoung/TeamProject/Project/hwayoung/ui/include -Lhome/hwayoung/TeamProject/Project/hwayoung/ui/lib/hwayounglib.a -o main
+	gcc -o main main.c -I/MyClass/project/Project/hwayoung/ui  -L/MyClass/project/Project/hwayoung/ui/lib-lhwayounglib
 
-
-clean :
-	rm main; cd ui/lib; rm -f hwayounglib.a board.o keyboard.o util.o
+clean:
+	rm -f main

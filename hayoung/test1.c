@@ -1,11 +1,10 @@
-#include "array.h"
-#include "check.h"
-
+#include "/home/lhy/MyClass/project/Project/hayoung/include/array.h"
+#include "/home/lhy/MyClass/project/Project/hayoung/include/check.h"
 int val[2][3][5];
 int array_[11][11] = { {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
 			  { 5, 2, 3, 4, 0, 1, 2, 3, 4, 0, 5 },
 			  { 5, 3, 4, 0, 1, 2, 3, 4, 0, 1, 5 },
-			  { 5, 2, 3, 4, 2, 1, 3, 2, 1, 0, 5 },
+			  { 5, 2, 3, 4, 2, 3, 3, 2, 1, 0, 5 },
 			  { 5, 3, 4, 2, 3, 1, 2, 3, 0, 1, 5 },
 			  { 5, 2, 1, 0, 3, 0, 0, 0, 1, 2, 5 },
 			  { 5, 1, 2, 3, 4, 0, 0, 2, 3, 4, 5 },
@@ -59,11 +58,13 @@ int main()
 	
 	//Part Check
 	print_block();
-	//Part_check(array_,4,5,5,5,val); // block check
-	//delete_and_create(array_,val,0);
 	
-	//printf("%d %d %d" ,val[0][0][0],val[0][1][0], val[0][2][0]);
-	Part_check(array_,2,7,3,7,val); 
+	Part_check(array_,5,4,5,5,val); // block check
+	//Part_check(array_,4,5,5,5,val); // block check
+	create_block(array_, val);
+	
+	Part_check(array_,2,6,2,7,val); 
+	
 	create_block(array_, val); // create new block
 	printf("\n change1 \n");
 	print_block();
