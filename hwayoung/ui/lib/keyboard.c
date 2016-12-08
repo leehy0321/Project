@@ -228,15 +228,12 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 							posit_change_y2 = *POSITION_Y;
 							
 							// change block each other
-							
 							temp = board[posit_change_y1][posit_change_x1];
 							board[posit_change_y1][posit_change_x1]= board[posit_change_y2][posit_change_x2]; // -1 = board[*POSITION_X][*POSITION_Y];
 							board[posit_change_y2][posit_change_x2] = temp;  //11
 							
 							
 							// draw Game board to show exchange blocks
-							
-							
 							if( board[posit_change_y1][posit_change_x1] < 0 )
 							{
 								board[posit_change_y1][posit_change_x1] =-board[posit_change_y1][posit_change_x1];
@@ -253,18 +250,9 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 							{
 								board[posit_change_y2][posit_change_x2]= board[posit_change_y2][posit_change_x2]-10;
 							}
-							
-							
-							
+									
 							// check 3 match
-							// @@
-							//board[posit_change_x1][posit_change_y1] = -board[posit_change_x1][posit_change_y1];
-							//board[posit_change_x2][posit_change_x2] = board[posit_change_x2][posit_change_x2] -10;
-							
-							printf("[keyboard] x: %d, y:%d :: (%d) / x: %d, y:%d :: (%d)",posit_change_x1,posit_change_y1,board[posit_change_y1][posit_change_x1],posit_change_x2,posit_change_y2,board[posit_change_y2][posit_change_x2]);
-							
-							Part_check(board,posit_change_x1,posit_change_y1,posit_change_x2,posit_change_y2,re_val,S);
-							printf("[keyboard] x: %d, y:%d :: (%d) / x: %d, y:%d :: (%d)",posit_change_x1,posit_change_y1,board[posit_change_y1][posit_change_x1],posit_change_x2,posit_change_y2,board[posit_change_y2][posit_change_x2]);
+						    Part_check(board,posit_change_x1,posit_change_y1,posit_change_x2,posit_change_y2,re_val,S);
 							*drawFlag =1;
 							Enter_flag=0;
 						}
