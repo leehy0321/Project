@@ -7,7 +7,7 @@ int change_number(int input)
 	
 	while(origin == change)
 	{
-		change = rand()%5; // 0~4
+		change = rand()%5 +1; // 0~4
 	}
 	return change;
 }

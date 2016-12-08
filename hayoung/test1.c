@@ -1,5 +1,6 @@
 #include "/home/lhy/MyClass/project/Project/hayoung/include/array.h"
 #include "/home/lhy/MyClass/project/Project/hayoung/include/check.h"
+#include <string.h>
 int val[2][3][5];
 int array_[11][11] = { {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
 			  { 5, 2, 3, 4, 0, 1, 2, 3, 4, 0, 5 },
@@ -25,6 +26,8 @@ void print_block()
 		printf("\n");
 	}
 }
+
+int SCORE;
 int main()
 {
 	//srand(time(NULL));
@@ -59,16 +62,19 @@ int main()
 	//Part Check
 	print_block();
 	
-	Part_check(array_,5,4,5,5,val); // block check
-	//Part_check(array_,4,5,5,5,val); // block check
-	create_block(array_, val);
+	//Part_check(array_,5,4,5,5,val); // block check
+	Part_check(array_,4,5,5,5,val,&SCORE); // block check
+	//create_block(array_, val,&SCORE);
 	
-	Part_check(array_,2,6,2,7,val); 
+	memset(val,0,sizeof(val));
 	
-	create_block(array_, val); // create new block
+	Part_check(array_,2,6,2,7,val,&SCORE); 
+	
+	//create_block(array_, val,&SCORE); // create new block
 	printf("\n change1 \n");
 	print_block();
 	
+	printf("score: %d",SCORE);
 	while(Entry_check(array_));
 	
 	printf("\n change2 \n");

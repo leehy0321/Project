@@ -13,7 +13,7 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to
 	{
 		for (int j = 0; j < B_SIZE_X; j++)
 		{
-			switch (board[j][i])
+			switch (board[i][j])
 			{
 				case WALL:
 					printf("▦ ");
@@ -73,11 +73,11 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11]) // draw to
 	}
 	
 	// cpy
-	for(int i=0; i<B_SIZE_X; i++)
+	for(int j=0; j<B_SIZE_Y; j++)
 	{
-		for(int j=0; j<B_SIZE_Y; j++)
+		for(int i=0; i<B_SIZE_X; i++)
 		{
-				board_cpy[i][j] = board[i][j];
+				board_cpy[j][i] = board[j][i];
 		}
 	}
 }

@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <unistd.h> // sleep
 #include <stdlib.h>
-#include "/home/hwayoung/TeamProject/Project/hwayoung/ui/include/util.h"
-#include "/home/hwayoung/TeamProject/Project/hwayoung/ui/include/total.h" 
+#include "../include/util.h"
+#include "../include/total.h" 
 
 // 쓰레드 함수
 void *t_function(void *_drawFlag)  // miniutes

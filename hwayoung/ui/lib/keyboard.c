@@ -1,5 +1,7 @@
 // keyboard
 #include "../include/total.h" 
+#include "../../../hayoung/include/array.h"
+
 #include <termios.h>  // kbhit
 #include <unistd.h>
 
@@ -35,7 +37,7 @@ int kbhit()
 	return ch;
 }
 
-void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFlag)
+void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFlag, int re_val[2][3][5],int *S)
 {
 		int key = 0,temp=0;
 		
@@ -56,15 +58,15 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 								if( *POSITION_X-1 >0 )
 								{
 									(*POSITION_X)--;
-									temp = board[*POSITION_X][*POSITION_Y];
-									board[*POSITION_X][*POSITION_Y] = -temp;
+									temp = board[*POSITION_Y][*POSITION_X];
+									board[*POSITION_Y][*POSITION_X] = -temp;
 								}
 							}
 							else if( (*POSITION_X == posit_change_x1+1) && *POSITION_Y == posit_change_y1 ) // enter's right -> enter
 							{
 								// delete now position
-								temp = board[*POSITION_X][*POSITION_Y];
-								board[*POSITION_X][*POSITION_Y] = -temp;
+								temp = board[*POSITION_Y][*POSITION_X];
+								board[*POSITION_Y][*POSITION_X] = -temp;
 								
 								//move left
 								(*POSITION_X)--;
@@ -76,14 +78,14 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 						}
 						else
 						{
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 							
 							//change thing to point now
 							(*POSITION_X)--;
 							if(*POSITION_X<1) *POSITION_X=9; 
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp =board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 						}
 						break;
 						
@@ -95,15 +97,15 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 								if( *POSITION_X+1 < 10 )
 								{
 									(*POSITION_X)++;
-									temp = board[*POSITION_X][*POSITION_Y];
-									board[*POSITION_X][*POSITION_Y] = -temp;
+									temp = board[*POSITION_Y][*POSITION_X];
+									board[*POSITION_Y][*POSITION_X] = -temp;
 								}
 							}
 							else if( (*POSITION_X == posit_change_x1-1) && *POSITION_Y == posit_change_y1 ) // enter's left+ -> enter
 							{
 								// delete now position
-								temp = board[*POSITION_X][*POSITION_Y];
-								board[*POSITION_X][*POSITION_Y] = -temp;
+								temp = board[*POSITION_Y][*POSITION_X];
+								board[*POSITION_Y][*POSITION_X] = -temp;
 								
 								//move left
 								(*POSITION_X)++;
@@ -115,14 +117,14 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 						}
 						else
 						{
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 							
 							//change thing to point now
 							(*POSITION_X)++;
 							if(*POSITION_X>9) *POSITION_X=1;
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 						}
 						break;
 						
@@ -134,15 +136,15 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 								if( *POSITION_Y+1 < 10 )
 								{
 									(*POSITION_Y)++;
-									temp = board[*POSITION_X][*POSITION_Y];
-									board[*POSITION_X][*POSITION_Y] = -temp;
+									temp = board[*POSITION_Y][*POSITION_X];
+									board[*POSITION_Y][*POSITION_X] = -temp;
 								}
 							}
 							else if( (*POSITION_X == posit_change_x1) && (*POSITION_Y == posit_change_y1-1) ) // enter's up -> enter
 							{
 								// delete now position
-								temp = board[*POSITION_X][*POSITION_Y];
-								board[*POSITION_X][*POSITION_Y] = -temp;
+								temp = board[*POSITION_Y][*POSITION_X];
+								board[*POSITION_Y][*POSITION_X] = -temp;
 								
 								//move left
 								(*POSITION_Y)++;
@@ -154,14 +156,14 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 						}
 						else
 						{
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 							
 							//change thing to point now
 							(*POSITION_Y)++;
 							if(*POSITION_Y>9) *POSITION_Y=1;
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X]= -temp;
 						}
 						break;
 					
@@ -173,15 +175,15 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 								if( *POSITION_Y-1 > 0 )
 								{
 									(*POSITION_Y)--;
-									temp = board[*POSITION_X][*POSITION_Y];
-									board[*POSITION_X][*POSITION_Y] = -temp;
+									temp = board[*POSITION_Y][*POSITION_X];
+									board[*POSITION_Y][*POSITION_X] = -temp;
 								}
 							}
 							else if( (*POSITION_X == posit_change_x1) && (*POSITION_Y == posit_change_y1+1) ) // enter's down -> enter
 							{
 								// delete now position
-								temp = board[*POSITION_X][*POSITION_Y];
-								board[*POSITION_X][*POSITION_Y] = -temp;
+								temp = board[*POSITION_Y][*POSITION_X];
+								board[*POSITION_Y][*POSITION_X] = -temp;
 								
 								//move left
 								(*POSITION_Y)--;
@@ -193,14 +195,14 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 						}
 						else
 						{
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 							
 							//change thing to point now
 							(*POSITION_Y)--;
 							if(*POSITION_Y<1) *POSITION_Y=9; 
-							temp = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = -temp;
+							temp = board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = -temp;
 						}
 						break;
 				}
@@ -211,27 +213,59 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 					case ENTER:
 						if( Enter_flag==0 )
 						{
-							// store now position
+							// store now position  11
 							posit_change_x1 = *POSITION_X; 
 							posit_change_y1 = *POSITION_Y;
 							
-							temp = -board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = temp+10;
+							temp = -board[*POSITION_Y][*POSITION_X];
+							board[*POSITION_Y][*POSITION_X] = temp+10;
 							
 							Enter_flag=1;
 						}
 						else{
-							// store now position
+							// store now position  -1
 							posit_change_x2 = *POSITION_X; 
 							posit_change_y2 = *POSITION_Y;
 							
 							// change block each other
-							temp = board[posit_change_x1][posit_change_y1];
-							board[posit_change_x1][posit_change_y1] = board[*POSITION_X][*POSITION_Y];
-							board[*POSITION_X][*POSITION_Y] = temp;
+							
+							temp = board[posit_change_y1][posit_change_x1];
+							board[posit_change_y1][posit_change_x1]= board[posit_change_y2][posit_change_x2]; // -1 = board[*POSITION_X][*POSITION_Y];
+							board[posit_change_y2][posit_change_x2] = temp;  //11
+							
+							
+							// draw Game board to show exchange blocks
+							
+							
+							if( board[posit_change_y1][posit_change_x1] < 0 )
+							{
+								board[posit_change_y1][posit_change_x1] =-board[posit_change_y1][posit_change_x1];
+							}
+							if( board[posit_change_y2][posit_change_x2] < 0)
+							{
+								board[posit_change_y2][posit_change_x2]= -board[posit_change_y2][posit_change_x2];
+							}
+							if(board[posit_change_y1][posit_change_x1] >10 )
+							{
+								board[posit_change_y1][posit_change_x1] =board[posit_change_y1][posit_change_x1]-10;
+							}
+							if(board[posit_change_y2][posit_change_x2] > 10)
+							{
+								board[posit_change_y2][posit_change_x2]= board[posit_change_y2][posit_change_x2]-10;
+							}
+							
+							
 							
 							// check 3 match
 							// @@
+							//board[posit_change_x1][posit_change_y1] = -board[posit_change_x1][posit_change_y1];
+							//board[posit_change_x2][posit_change_x2] = board[posit_change_x2][posit_change_x2] -10;
+							
+							printf("[keyboard] x: %d, y:%d :: (%d) / x: %d, y:%d :: (%d)",posit_change_x1,posit_change_y1,board[posit_change_y1][posit_change_x1],posit_change_x2,posit_change_y2,board[posit_change_y2][posit_change_x2]);
+							
+							Part_check(board,posit_change_x1,posit_change_y1,posit_change_x2,posit_change_y2,re_val,S);
+							printf("[keyboard] x: %d, y:%d :: (%d) / x: %d, y:%d :: (%d)",posit_change_x1,posit_change_y1,board[posit_change_y1][posit_change_x1],posit_change_x2,posit_change_y2,board[posit_change_y2][posit_change_x2]);
+							*drawFlag =1;
 							Enter_flag=0;
 						}
 						
