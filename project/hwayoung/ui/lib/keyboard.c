@@ -235,6 +235,7 @@ void check_key(int board[11][11], int *POSITION_X, int *POSITION_Y, int *drawFla
 							// reduce move_count
 							(*count) = (*count)-1;
 							
+							
 							// store now position  -1
 							posit_change_x2 = *POSITION_X; 
 							posit_change_y2 = *POSITION_Y;

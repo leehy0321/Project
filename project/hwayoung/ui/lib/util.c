@@ -6,7 +6,7 @@ void gotoxy(int x, int y)
 	printf("%c[%d;%df",0x1B,y,x);
 }
 
-void draw_gameBoard(int board[11][11], int board_cpy[11][11],int count) // draw to 
+void draw_gameBoard(int board[11][11], int board_cpy[11][11],int count,int S) // draw to 
 {
 	gotoxy(S_POSIT_X, S_POSIT_Y);
 	for (int i=0; i<B_SIZE_Y; i++)
@@ -83,6 +83,10 @@ void draw_gameBoard(int board[11][11], int board_cpy[11][11],int count) // draw 
 	
 	gotoxy(47,7);
 	printf(" %d ",count);
+	
+	gotoxy(46,13);
+	printf(" %d ",S);
+
 	gotoxy(2,80);
 }
 

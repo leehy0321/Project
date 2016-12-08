@@ -28,7 +28,7 @@ void reset_game()
 	// draw
 	system("clear");
 	title();
-	draw_gameBoard(_board,board_cpy,count);
+	draw_gameBoard(_board,board_cpy,count,SCORE);
 }
 
 int main()
@@ -61,10 +61,12 @@ int main()
 			endScreen();
 			break;
 		}
-		draw_gameBoard(_board,board_cpy,count);
+		draw_gameBoard(_board,board_cpy,count,SCORE);
+		while(Entry_check(_board));
 		if( drawFlag==1)
 		{
-			draw_gameBoard(_board,board_cpy,count);
+			draw_gameBoard(_board,board_cpy,count,SCORE);
+			while(Entry_check(_board));
 			drawFlag=0;
 		}
 	}
